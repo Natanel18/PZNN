@@ -1,0 +1,45 @@
+<h1>Arzneimittelartikelnummer (PZN)</h1>
+Arzneimittelartikelnummer (PZN) <input type="text" value="0660816" id="PZNInput">
+<button onclick="clicked()">(PZN) Überprüfung</button><br><br>
+<div id="output">Hier erscheint der Rückgabewert der PZN, wenn der Button gedrückt wird.</div>
+<script>		
+	function istGueltig(PZN) {
+		
+		if (PZN.length != 7) {
+			return false;
+		}
+
+		
+		var a = [3, 1, 3, 1, 3, 1];
+		
+		
+		var pruefsumme = 0;
+		for (var i = 0; i < 6; i++) {
+			
+			pruefsumme += parseInt(PZN[i]) * a[i];
+		}
+		
+		
+		var pruefzifferBerechnet = 11 - (pruefsumme % 11);
+		
+		
+		if (pruefzifferBerechnet == 11) {
+			pruefzifferBerechnet = 0;
+		}
+		
+	
+		return pruefzifferBerechnet == parseInt(PZN[6]);
+	}
+
+	function clicked() {
+		var PZN = document.getElementById("PZNInput").value;
+		if (istGueltig(PZN)) {
+			document.getElementById("output").innerHTML = "Die PZN ist gültig.";
+		} else {
+			document.getElementById("output").innerHTML = "Die PZN ist ungültig.";
+		}
+	}
+
+
+</script>
+
